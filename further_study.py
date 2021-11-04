@@ -16,7 +16,11 @@ def custom_len(input_list):
 
     """
 
-    return 0
+    count = 0
+    for item in input_list:
+        count +=1
+
+    return count
 
 
 # For the next four exercises, you'll need to be clever and think about ways
@@ -44,7 +48,7 @@ def custom_append(input_list, value):
 
     """
 
-    pass
+    input_list[:custom_len(input_list) + 1] = input_list + [value]
 
 
 def custom_extend(input_list, second_list):
@@ -62,8 +66,8 @@ def custom_extend(input_list, second_list):
         True
 
     """
-
-    pass
+    new_len = custom_len(input_list) + custom_len(second_list)
+    input_list[:new_len] = input_list + second_list
 
 
 def custom_insert(input_list, index, value):
@@ -80,8 +84,9 @@ def custom_insert(input_list, index, value):
         True
 
     """
-
-    pass
+    #new_len is the length of the new input_list
+    new_len = custom_len(input_list) + 1
+    input_list[:new_len] = input_list[:index] + [value] + input_list[index:]
 
 
 def custom_remove(input_list, value):
@@ -99,8 +104,16 @@ def custom_remove(input_list, value):
         True
 
     """
+    index_remove = None
+    for ndx, item in enumerate(input_list):
+        if item == value:
+            index_remove = ndx
+            break
 
-    pass
+    if index_remove == None:
+        return       
+
+    del input_list[index_remove]
 
 
 def custom_pop(input_list):
@@ -118,8 +131,11 @@ def custom_pop(input_list):
         ['Jan', 'Feb']
 
     """
+    last_item = input_list[-1]
 
-    return None
+    del input_list[-1]
+
+    return last_item
 
 
 def custom_index(input_list, value):
@@ -134,8 +150,13 @@ def custom_index(input_list, value):
         1
 
     """
-
-    return 0
+    index = -1
+    for ndx, item in enumerate(input_list):
+        if item == value:
+            index = ndx
+            break
+        
+    return index
 
 
 def custom_count(input_list, value):
@@ -150,8 +171,13 @@ def custom_count(input_list, value):
         2
 
     """
+    count_ind = 0
 
-    return 0
+    for item in input_list:
+        if item == value:
+            count_ind += 1
+
+    return count_ind
 
 
 def custom_reverse(input_list):
@@ -170,7 +196,7 @@ def custom_reverse(input_list):
 
     """
 
-    pass
+    input_list[:] = input_list[::-1]
 
 
 def custom_contains(input_list, value):
@@ -189,8 +215,10 @@ def custom_contains(input_list, value):
         True
 
     """
-
-    return None
+    for item in input_list:
+        if item == value:
+            return True
+    return False
 
 
 def custom_equality(some_list, another_list):
@@ -208,8 +236,14 @@ def custom_equality(some_list, another_list):
         False
 
     """
+    if not custom_len(some_list) == custom_len(another_list):
+        return False
+    
+    for ndx in range(custom_len(another_list)):
+        if not some_list[ndx] == another_list[ndx]:
+            return False
 
-    return None
+    return True
 
 
 # This is the part were we actually run the doctests.
